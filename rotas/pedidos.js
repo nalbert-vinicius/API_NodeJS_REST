@@ -1,5 +1,10 @@
 const express = require('express');
 const route = express.Router();
+/**
+ * req = request
+ * res = resposta
+ * next = next
+ */
 
 // exemplo de GET
 route.get('/', (req, res, next) =>{
