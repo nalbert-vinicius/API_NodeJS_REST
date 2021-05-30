@@ -1,4 +1,6 @@
 const express = require('express');
+const rotaPedidos = require('./rotas/pedidos.js')
+const rotaProdutos = require('./rotas/produtos.js')
 //instancia express
 const app = express();
 /**
@@ -6,10 +8,10 @@ const app = express();
  * res = resposta
  * next = next
  */
-app.use((req, res, next)=> {
-    res.status(200).send({
-        mensagem: 'Ok, deu certo'
-    });
-}); 
+
+//apontando o arquivo de rotas
+app.use('/pedidos', rotaPedidos)
+app.use('/produtos', rotaProdutos)
+
 
 module.exports = app;
