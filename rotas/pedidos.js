@@ -28,10 +28,23 @@ route.post('/:parametro', (req, res, next) =>{
     }
 })
 
+//exemplo delete
 route.delete('/', (req, res, next) =>{
     res.status(200).send({
         mensagem: "Retorno do DELETE",
         m: "Retorno outra mensagem"
+    })
+})
+
+//exemplo bodyParse
+route.post('/', (req, res, next) => {
+    const pedido = {
+        produto: req.body.produto,
+        quantidade: req.body.quantidade
+    }
+    res.status(201).send({
+        msg: "Inserido com sucesso!",
+        pedidoCriado: pedido
     })
 })
 

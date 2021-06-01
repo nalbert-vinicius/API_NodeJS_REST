@@ -1,0 +1,9 @@
+{
+    "env" : {
+        "MYSQL_USER" : "admin",
+        "MYSQL_PASSWORD" : "1234",
+        "MYSQL_DATABASE" : "api_nodejs",
+        "MYSQL_HOST" : "localhost",
+        "MYSQL_PORT" : 3306
+    }
+}
