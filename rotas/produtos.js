@@ -30,7 +30,7 @@ route.get('/', (req, res, next) =>{
     })
 })
 
-//exemplo de get
+//EXEMPLO GET COM PARAMETRO
 route.get('/:id_produto', (req, res, next) =>{
     mysql.query("SELECT * FROM produtos WHERE id_produtos = ?;",
     [req.params.id_produto],
@@ -57,6 +57,7 @@ route.get('/:id_produto', (req, res, next) =>{
     })
 })
 
+//EXEMPLO PATCH 
 route.patch('/',(req, res, next) => {
     mysql.query('UPDATE produtos SET nome = ?, preco = ? WHERE id_produtos = ?',
     [req.body.nome, req.body.preco, req.body.id_produtos],
@@ -84,6 +85,7 @@ route.patch('/',(req, res, next) => {
 )   
 })
 
+//EXEMPLO POST 
 route.post('/', (req, res, next) => {
     mysql.query('INSERT INTO produtos (nome,preco) VALUES (?,?)',
         [req.body.nome, req.body.preco],
@@ -112,6 +114,7 @@ route.post('/', (req, res, next) => {
     )
 })
 
+//EXEMPLO DELETE
 route.delete('/', (req, res, next) =>{
     mysql.query('DELETE FROM produtos WHERE id_produtos = ?',
     [req.body.id_produtos],
