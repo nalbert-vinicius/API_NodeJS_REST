@@ -9,7 +9,16 @@ const mysql = require('../db').con;
 
 // exemplo de GET
 route.get('/', (req, res, next) =>{
-    mysql.query("SELECT * FROM pedidos",
+    mysql.query(`SELECT 
+	                pe.id_pedidos,
+                    pe.quantidade,
+                    pr.id_produtos,
+                    pr.nome,
+                    pr.preco
+                FROM pedidos as pe 
+                INNER JOIN produtos as pr 
+                ON pr.id_produtos = pe.id_produtos;`,
+
     (err, result, field) =>{
         if(err){return res.status(500).send({msg: err})}
         const response = {
@@ -17,8 +26,12 @@ route.get('/', (req, res, next) =>{
             pedidos: result.map(pedido => {
                 return {
                     id_pedido: pedido.id_pedidos,
-                    id_produto: pedido.id_produtos,
                     quantidade: pedido.quantidade,
+                    produto: {
+                        id_produto: pedido.id_produtos,
+                        nome: pedido.nome,
+                        preco: pedido.preco
+                        },
                     Request: {
                         tipo: 'GET',
                         descricao: '',

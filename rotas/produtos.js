@@ -1,10 +1,31 @@
 const express = require('express');
 const route = express.Router();
 const mysql = require('../db.js').con;
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, result) => {
+        result(null, './uploads/');
+    },
+    filename: (req, file, result) => {
+        result(null,file.originalname)
+    }
+})
+//const com propriedades
+const upload = multer({
+    storage: storage,
+    limits: {
+        //valor em bytes
+        fileSize: 1024 * 1024 * 5
+    }
+})
+
 /**
  * req = request
  * res = resposta
  * next = next
+ */
+/**
+ * multer biblioteca que permite envio de imagens
  */
 // exemplo de GET
 route.get('/', (req, res, next) =>{
@@ -18,6 +39,7 @@ route.get('/', (req, res, next) =>{
                     id_produto: prod.id_produtos,
                     nome: prod.nome,
                     preco: prod.preco,
+                    img: prod.imagens,
                     Request: {
                         tipo: 'GET',
                         descricao: '',
@@ -86,9 +108,9 @@ route.patch('/',(req, res, next) => {
 })
 
 //EXEMPLO POST 
-route.post('/', (req, res, next) => {
-    mysql.query('INSERT INTO produtos (nome,preco) VALUES (?,?)',
-        [req.body.nome, req.body.preco],
+route.post('/', upload.single('img_produto'), (req, res, next) => {
+    mysql.query('INSERT INTO produtos (nome, preco, imagens) VALUES (?,?,?)',
+        [req.body.nome, req.body.preco, req.file.path],
         (err, result, field) => {
             if(err){
                return res.status(500).send({
