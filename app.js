@@ -6,6 +6,7 @@ const morgan = require('morgan')
 //ROTAS
 const rotaPedidos = require('./rotas/pedidos.js')
 const rotaProdutos = require('./rotas/produtos.js')
+const rotaUsuario = require('./rotas/usuarios');
 
 //instancia express
 const app = express();
@@ -39,8 +40,9 @@ app.use((req, res, next) => {
 })
 
 //apontando o arquivo de rotas
-app.use('/pedidos', rotaPedidos)
-app.use('/produtos', rotaProdutos)
+app.use('/pedidos', rotaPedidos);
+app.use('/produtos', rotaProdutos);
+app.use('/usuarios',rotaUsuario)
 
 //quando não encontrar nenhuma das rotas entra aqui
 app.use((req, res, next) => {
