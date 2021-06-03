@@ -3,15 +3,17 @@ const route = express.Router();
 const mysql = require('../db.js').con;
 const multer = require('multer');
 const storage = multer.diskStorage({
+    //aponta o destino "PASTA" para salvar
     destination: (req, file, result) => {
         result(null, './uploads/');
     },
+    //indica o nome do arquivo no upload
     filename: (req, file, result) => {
         result(null,file.originalname)
     }
 })
-//const com propriedades
 const upload = multer({
+    //alguns filtros
     storage: storage,
     limits: {
         //valor em bytes
@@ -107,9 +109,10 @@ route.patch('/',(req, res, next) => {
 )   
 })
 
-//EXEMPLO POST 
+//EXEMPLO POST com parametro de upload de imagem
 route.post('/', upload.single('img_produto'), (req, res, next) => {
     mysql.query('INSERT INTO produtos (nome, preco, imagens) VALUES (?,?,?)',
+    console.log(req.file)
         [req.body.nome, req.body.preco, req.file.path],
         (err, result, field) => {
             if(err){
