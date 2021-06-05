@@ -2,7 +2,6 @@ const express = require('express');
 const route = express.Router();
 const mysql = require('../db').con;
 //biblioteca para criptografar senhas
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 route.post('/cadastro', (req, res, next) =>{
