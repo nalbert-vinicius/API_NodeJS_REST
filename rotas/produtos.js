@@ -1,5 +1,6 @@
 const express = require('express');
 const route = express.Router();
+const login = require('../middleware/login');
 const mysql = require('../db.js').con;
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -110,10 +111,9 @@ route.patch('/',(req, res, next) => {
 })
 
 //EXEMPLO POST com parametro de upload de imagem
-route.post('/', upload.single('img_produto'), (req, res, next) => {
+route.post('/', login, upload.single('img'), (req, res, next) => {
     mysql.query('INSERT INTO produtos (nome, preco, imagens) VALUES (?,?,?)',
-    console.log(req.file)
-        [req.body.nome, req.body.preco, req.file.path],
+        [req.body.nome, req.body.preco, req.body.patch],
         (err, result, field) => {
             if(err){
                return res.status(500).send({

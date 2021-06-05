@@ -4,6 +4,7 @@
         "MYSQL_PASSWORD" : "1234",
         "MYSQL_DATABASE" : "api_nodejs",
         "MYSQL_HOST" : "localhost",
-        "MYSQL_PORT" : 3306
+        "MYSQL_PORT" : 3306,
+        "JWT_KEY": "chave"
     }
 }
