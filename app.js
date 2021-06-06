@@ -12,6 +12,8 @@ const rotaUsuario = require('./rotas/usuarios');
 const app = express();
 
 //registra os logs da API
+
+
 //e passado como parametro o ambiente de 'DEV'
 app.use(morgan('dev'))
 
